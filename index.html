@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Thaleia Holiday Home</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    min-height: 100vh;
+    background: #0a0a0a;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Georgia', serif;
+    padding: 2rem;
+  }
+  .logo { color: #c9a96e; font-size: 1.1rem; letter-spacing: 0.3em; text-transform: uppercase; margin-bottom: 0.5rem; opacity: 0.8; }
+  h1 { color: #fff; font-size: 2rem; font-weight: 400; letter-spacing: 0.05em; margin-bottom: 0.75rem; text-align: center; }
+  .subtitle { color: #888; font-size: 0.95rem; letter-spacing: 0.1em; margin-bottom: 3rem; text-align: center; }
+  .decoration { width: 60px; height: 1px; background: #c9a96e; margin: 0 auto 2rem; opacity: 0.5; }
+  .buttons { display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center; }
+  .btn {
+    background: transparent;
+    border: 1px solid #c9a96e;
+    color: #c9a96e;
+    padding: 1rem 2.5rem;
+    font-size: 1rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-family: 'Georgia', serif;
+    border-radius: 2px;
+    min-width: 160px;
+  }
+  .btn:hover { background: #c9a96e; color: #0a0a0a; }
+  .overlay {
+    display: none;
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: #000;
+    z-index: 1000;
+    align-items: center;
+    justify-content: center;
+  }
+  .overlay.open { display: flex; }
+  video {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    background: #000;
+  }
+  .close-btn {
+    position: absolute;
+    top: 16px; right: 16px;
+    background: rgba(0,0,0,0.7);
+    border: 1px solid #c9a96e;
+    color: #c9a96e;
+    width: 42px; height: 42px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    border-radius: 2px;
+    z-index: 10;
+    transition: all 0.2s;
+  }
+  .close-btn:hover { background: #c9a96e; color: #000; }
+</style>
+</head>
+<body>
+<div class="logo">Welcome to</div>
+<h1>Thaleia Holiday Home</h1>
+<div class="decoration"></div>
+<p class="subtitle">Select your language</p>
+<div class="buttons">
+  <button class="btn" onclick="openVideo('english.mp4')">🇬🇧 English</button>
+  <button class="btn" onclick="openVideo('romanian.mp4')">🇷🇴 Romanian</button>
+  <button class="btn" onclick="openVideo('bulgarian.mp4')">🇧🇬 Bulgarian</button>
+  <button class="btn" onclick="openVideo('thaleia_ellhnika.mp4')">🇬🇷 Ελληνικά</button>
+</div>
+<div class="overlay" id="overlay">
+  <button class="close-btn" onclick="closeVideo()">✕</button>
+  <video id="vid" playsinline controls controlsList="nodownload nofullscreen noremoteplayback" disablePictureInPicture></video>
+</div>
+<script>
+const vid = document.getElementById('vid');
+function openVideo(file) {
+  vid.src = file;
+  vid.load();
+  vid.play();
+  document.getElementById('overlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeVideo() {
+  document.getElementById('overlay').classList.remove('open');
+  vid.pause();
+  vid.src = '';
+  document.body.style.overflow = '';
+}
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeVideo(); });
+</script>
+</body>
+</html>
